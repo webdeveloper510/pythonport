@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Web Based Speed
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../static/demo/demo.css" rel="stylesheet" />
+<style>
+  .port{
+    display:none;
+  }
+  input, label {
+  margin: 5px 5px;
+}
+
+input, label {
+  margin: 5px 5px;
+}
+
+.form-group {
+  margin: 30px auto;
+  width: 450px;
+}
+
+.form-control {
+  float: left;
+}
+
+#inputStreet {
+  width: 100%;
+}
+
+#inputCity {
+  width: 50%;
+}
+
+#inputState {
+  width: 15%;
+}
+
+#inputZip {
+  width: 28%;
+}
+
+#inputCounty {
+  width: 45%;
+}
+
+#inputCountry {
+  width: 50%;
+}
+
+</style>
+</head>
+
+<body class="">
+  {% block content %}
+  <div class="sidebar" data-color="white" data-active-color="danger">
+    <div class="logo">
+      <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <div class="logo-image-small">
+          <img src="../static/img/logo-small.png">
+        </div>
+        <!-- <p>CT</p> -->
+      </a>
+      <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        Web Based Speed
+        <!-- <div class="logo-image-big">
+          <img src="../assets/img/logo-big.png">
+        </div> -->
+      </a>
+    </div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+         <li class="active ">
+          <a href="{% url '/' %}">
+            <i class="nc-icon nc-bank"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'form' %}">
+            <i class="nc-icon nc-diamond"></i>
+            <p>ADD PORT</p>
+          </a>
+        </li>
+         <li>
+          <a href="{% url 'table' %}">
+            <i class="nc-icon nc-tile-56"></i>
+            <p>Table List</p>
+          </a>
+        </li>
+         <li>
+          <a href="{% url 'profile' %}">
+            <i class="nc-icon nc-pin-3"></i>
+            <p>Maps</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'notifictions' %}">
+            <i class="nc-icon nc-bell-55"></i>
+            <p>Notifications</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'user' %}">
+            <i class="nc-icon nc-single-02"></i>
+            <p>User Profile</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'typography' %}">
+            <i class="nc-icon nc-caps-small"></i>
+            <p>Typography</p>
+          </a>
+        </li>
+        <li class="active-pro">
+          <a href="./upgrade.html">
+            <i class="nc-icon nc-spaceship"></i>
+            <p>Upgrade to PRO</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card ">
+          <div class="card-header ">
+            ADD PORT
+          </div>
+          <div class="">
+            <canvas id="chartEmail"></canvas>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-calendar"></i> Number of emails sent
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card card-chart">
+          <div class="card-body">
+            <p>Add Details</p>
+            <div class="col-md-4">
+              <div class="col">
+                {% if messages %}
+                {% for result in messages %}
+              <div class="alert alert-warning text-center" id="message" role="alert">
+              <b style="color:green">{{result}}</b>
+            </div>  
+            {% endfor %} 
+            {% endif %}
+                <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label">Business name</label>
+                        <input type="text" class="form-control" placeholder="Business name" name="bussiness_name" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">Contact name</label>
+                      <input type="text" class="form-control" placeholder="Contact name" name="contact_name" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">Contact phone number</label>
+                      <input type="text" class="form-control" placeholder="Contact phone number" name="contact_phone" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">Business Address Details</label>
+                      <input type="text" class="form-control" id="autocomplete" name="street" placeholder="Street">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="inputCity" name="city" placeholder="City">
+                    </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="inputState" name="state" placeholder="State">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="inputZip" name="postal_code" placeholder="Postal code">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="inputCounty" name="country" placeholder="County">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1" class="form-label">Contact email address</label>
+                      <input type="text" class="form-control" placeholder="Contact email address" name="email" required>
+                    </div>
+                    <div class="form-group port">
+                      <input type="text"  placeholder="PORT" name="port" value="{{request.session.port}}">
+                    </div>
+                    <div class="form-group port">
+                      <input type="text"  placeholder="" name="download_speed" value="{{request.session.download_speed}}">
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+        <div class="col">
+        </div>
+    </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+  <!--   Core JS Files   -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../static/js/core/jquery.min.js"></script>
+  <script src="../static/js/core/popper.min.js"></script>
+  <script src="../static/js/core/bootstrap.min.js"></script>
+  <script src="../static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="../static/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../static/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../static/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../static/demo/demo.js"></script>
+  
+  <script>
+    setTimeout(function() {
+     $('#message').fadeOut();
+    }, 2000 );
+        </script>
+</body>
+
+</html>

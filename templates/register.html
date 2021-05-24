@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Register</title>
+  </head>
+  <body>
+      {% block content %}
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                </div>
+                    <div class="col md 6">
+                        {% if messages %}
+                {% for result in messages %}
+              <div class="alert alert-warning text-center" id="message" role="alert">
+              <b style="color:green">{{result}}</b>
+            </div>  
+            {% endfor %}
+            {% endif %}
+                        <p>Register Form</p>
+                        <form action="{% url 'register' %}" method="POST" autocomplete="off" >
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="" name="username" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text"></div>
+                              </div>
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">Email address</label>
+                              <input type="email" class="form-control" id="" name="email" aria-describedby="emailHelp">
+                              <div id="emailHelp" class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="" name="password">
+                              </div>
+                            <div class="mb-3">
+                              <label for="exampleInputPassword1" class="form-label">Confirm-Password</label>
+                              <input type="password" class="form-control" id="" name="confirm_password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+                    </div>
+
+                <div class="col"></div>
+            </div>
+        </div>
+        {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        setTimeout(function() {
+         $('#message').fadeOut();
+        }, 2000 );
+            </script>  
+</body>
+</html>

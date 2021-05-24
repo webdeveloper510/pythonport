@@ -1,0 +1,223 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Paper Dashboard 2 by Creative Tim
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../static/demo/demo.css" rel="stylesheet" />
+</head>
+<style>
+  h4{
+    margin:0px !important;
+  }
+</style>
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src="../static/img/logo-small.png">
+          </div>
+          <!-- <p>CT</p> -->
+        </a>
+        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+          Web Based Speed
+          <!-- <div class="logo-image-big">
+            <img src="../assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <!-- <li class="active ">
+            <a href="{% url '/' %}">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li> -->
+          {% if user_data.1 != 'admin' %}
+         
+          <li>
+            <a href="{% url '/' %}">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>Add details </p>
+            </a>
+          </li>
+          {% endif %}
+          {{user_data.0.0}}
+          {% if user_data.1 == 'admin' %}
+          <li>
+            <a href="{% url 'form' %}">
+              <i class="nc-icon nc-diamond"></i>
+              <p>ADD PORT</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'check_enable' %}">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Enable user</p>
+            </a>
+          </li>
+            <li>
+              <a href="{% url 'table' %}">
+                <i class="nc-icon nc-tile-56"></i>
+                <p>Port List</p>
+              </a>
+            </li>
+            <li>
+            <a href="{% url 'profile_user_data' %}">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>User Profile data</p>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:;">PORT LIST</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="javascript:;">
+                  <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item btn-rotate">
+                <a class="nav-link " href="http://example.com">
+                  <h4>{{user_data.1}}</h4>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-plain">
+              <div class="card-body">
+                {% if messages %}
+                {% for result in messages %}
+              <div class="alert alert-warning text-center" id="message" role="alert">
+              <b style="color:green">{{result}}</b>
+            </div>  
+            {% endfor %}
+            {% endif %}
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Index
+                      </th>
+                      <th>
+                        Number
+                      </th>
+                    </thead>
+                    <tbody>
+                      {% for data in port_data %}
+                      <tr class="port_row">
+                        <td class="port_id">
+                          {{data.0}}
+                        </td>
+                        <td>
+                          {{data.1}}
+                        </td>
+                        <td>
+                          <button class="btn btn-danger delete_btn" port_id = {{data.0}}>DELETE</button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../static/js/core/jquery.min.js"></script>
+  <script src="../static/js/core/popper.min.js"></script>
+  <script src="../static/js/core/bootstrap.min.js"></script>
+  <script src="../static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="../static/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../static/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../static/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../static/demo/demo.js"></script>
+
+  <script>
+    $('.delete_btn').click(function(){
+      port_id = $(this).attr('port_id')
+      console.log(port_id); 
+      window.location.href = "{% url 'delete' %}?port_id="+window.btoa(port_id)
+    })
+  </script>
+        <script>
+          setTimeout(function() {
+           $('#message').fadeOut();
+          }, 2000 );
+              </script>
+
+</body>
+
+</html>
